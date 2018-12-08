@@ -13,15 +13,15 @@ namespace Baeumchen
 {
     public partial class Baumhaus : Form
     {
-        Bäumchen my_tree = new Bäumchen(50);
+        Bäumchen my_tree;
         Baummaler my_maler;
         public Baumhaus()
         {
             InitializeComponent();
-            rTB_out.Text = string.Join(", ", my_tree.Deep().ToArray());
-
-            //my_maler = new Baummaler(my_tree);
-            //mainholder.SetBaummaler(my_maler);
+            my_tree = new Bäumchen(50);
+            my_maler = new Baummaler(my_tree);
+            mainholder.SetBaummaler(my_maler);
+            rTB_out.Text = string.Join(", ", my_tree.Deep().ToArray());  
         }
 
         private void nUD_Value_Changed(object sender, EventArgs e)
@@ -36,8 +36,6 @@ namespace Baeumchen
             for(int i = 0; i < nUD_count.Value; i++) my_tree.Add(rand.Next(Convert.ToInt32(nUD_min.Value), Convert.ToInt32(nUD_max.Value + 1)));
             rTB_out.Text = string.Join(", ", my_tree.Deep().ToArray());
             lb_deep.Text = my_tree.GetDeep().ToString();
-            my_maler = new Baummaler(my_tree);
-            mainholder.SetBaummaler(my_maler);
         }
     }
 }

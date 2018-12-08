@@ -15,6 +15,7 @@ namespace Baeumchen
     {
         private readonly int my_int;
         private List<Bäumchen> sons = new List<Bäumchen> { null, null };
+        private Baummaler my_maler = null;
 
         public int Value { get { return my_int; } }
         public List<Bäumchen> Sons {  get { return sons; } }
@@ -27,6 +28,7 @@ namespace Baeumchen
             int pos = (value < my_int) ? (0) : (1);
             if (sons[pos] == null) sons[pos] = new Bäumchen(value);
             else sons[pos].Add(value);
+            if (my_maler != null) my_maler.UpdateImage();
             Skip:;
         }
 
@@ -45,6 +47,8 @@ namespace Baeumchen
             deeper = (sons[1] != null) ? ((sons[1].GetDeep()> deeper) ? (sons[1].GetDeep()) : ( deeper)) : (deeper);
             return deeper + 1;
         }
+
+        internal void GetMaler(Baummaler maler) => my_maler = maler;
     }
 
     public class Baummaler
@@ -58,17 +62,18 @@ namespace Baeumchen
         public Baummaler(Bäumchen Baum)
         {
             my_Baum = Baum;
+            my_Baum.GetMaler(this);
         }
 
         public void UpdateImage()
         {
             b = new Bitmap(Convert.ToInt32(Math.Pow(2, my_Baum.GetDeep()) * 50), my_Baum.GetDeep() * 50);
             g = Graphics.FromImage(b);
-            //g.FillEllipse(new SolidBrush(Color.Red), new Rectangle(0, 0, b.Width, b.Height));
+            g.FillRectangle(new SolidBrush(Color.Gray), new Rectangle(0, 0, b.Width, b.Height));
             SolidBrush brush = new SolidBrush(Color.Red);
             foreach(Point p in GetPoints(my_Baum))
             {
-                g.FillRectangle(brush, p.X - 5, p.Y - 5, 10, 10);
+                g.FillEllipse(brush, new Rectangle(p.X - 5, p.Y - 5, 10, 10));
             }
             if (t != null) t.SetImage(b);
         }
@@ -82,7 +87,8 @@ namespace Baeumchen
                 List<Bäumchen> news = new List<Bäumchen>();
                 for(int u = 1; u <= possibles.Count; u++)
                 {
-                    if (possibles[u - 1] != null) points.Add(new Point(u / possibles.Count * 25, (i + 1) * 50));
+                    //if (possibles[u - 1] != null) points.Add(new Point(u / possibles.Count / 2 * b.Width, (i + 1) * 50));
+                    if (possibles[u - 1] != null) points.Add(new Point(Convert.ToInt16(b.Width / 2 * u / Math.Pow(2, i)), (i + 1) * 50));
                     try { news.Add(possibles[u - 1].Sons[0]); } catch { news.Add(null); }
                     try { news.Add(possibles[u - 1].Sons[1]); } catch { news.Add(null); }
             }
