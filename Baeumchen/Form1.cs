@@ -20,7 +20,7 @@ namespace Baeumchen
             InitializeComponent();
             rTB_out.Text = string.Join(", ", my_tree.Deep().ToArray());
 
-            my_maler = new Baummaler(my_tree);
+            //my_maler = new Baummaler(my_tree);
             //mainholder.SetBaummaler(my_maler);
         }
 
@@ -36,6 +36,8 @@ namespace Baeumchen
             for(int i = 0; i < nUD_count.Value; i++) my_tree.Add(rand.Next(Convert.ToInt32(nUD_min.Value), Convert.ToInt32(nUD_max.Value + 1)));
             rTB_out.Text = string.Join(", ", my_tree.Deep().ToArray());
             lb_deep.Text = my_tree.GetDeep().ToString();
+            my_maler = new Baummaler(my_tree);
+            mainholder.SetBaummaler(my_maler);
         }
     }
 }

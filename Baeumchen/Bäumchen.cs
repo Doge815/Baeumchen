@@ -42,9 +42,11 @@ namespace Baeumchen
         internal int GetDeep()
         {
             int deeper = (sons[0] != null) ? (sons[0].GetDeep()) : (0);
-            deeper = (sons[1] != null) ? ((sons[1].GetDeep()> deeper) ? (sons[1].GetDeep()) : ( deeper)) : (0);
+            deeper = (sons[1] != null) ? ((sons[1].GetDeep()> deeper) ? (sons[1].GetDeep()) : ( deeper)) : (deeper);
             return deeper + 1;
         }
+
+        internal Point get
     }
 
     public class Baummaler
@@ -60,18 +62,24 @@ namespace Baeumchen
             my_Baum = Baum;
         }
 
-        public void Update()
+        public void UpdateImage()
         {
-            /*b = new Bitmap(Convert.ToInt32(Math.Pow(2, my_Baum.GetDeep() - 1)), 2);
+            b = new Bitmap(Convert.ToInt32(Math.Pow(2, my_Baum.GetDeep() - 1) * 50), my_Baum.GetDeep() * 50);
             g = Graphics.FromImage(b);
             g.FillEllipse(new SolidBrush(Color.Red), new Rectangle(0, 0, b.Width, b.Height));
-            if (t != null) t.SetImage(b);*/
+            if (t != null) t.SetImage(b);
+
+            /*OpenFileDialog opf = new OpenFileDialog();
+            if (opf.ShowDialog() == DialogResult.OK)
+            {
+                t.SetImage(new Bitmap(opf.FileName));
+            }*/
         }
 
         public void SetTreeholder(Treeholder treeholder)
         {
             t = treeholder;
-            Update();
+            UpdateImage();
         }
     }
 
@@ -85,11 +93,11 @@ namespace Baeumchen
             p.SizeMode = PictureBoxSizeMode.AutoSize;
             this.AutoScroll = true;
             this.Controls.Add(p);
-            OpenFileDialog opf = new OpenFileDialog();
+            /*OpenFileDialog opf = new OpenFileDialog();
             if(opf.ShowDialog() == DialogResult.OK)
             {
                 p.Image = new Bitmap(opf.FileName);
-            }
+            }*/
         }
 
         public void SetImage(Bitmap image) => p.Image = image;
