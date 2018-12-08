@@ -38,15 +38,65 @@ namespace Baeumchen
             if (sons[1] != null) output.AddRange(sons[1].Deep());
             return output;
         }
+
+        internal int GetDeep()
+        {
+            int deeper = (sons[0] != null) ? (sons[0].GetDeep()) : (0);
+            deeper = (sons[1] != null) ? ((sons[1].GetDeep()> deeper) ? (sons[1].GetDeep()) : ( deeper)) : (0);
+            return deeper + 1;
+        }
     }
 
-    public class Baummaler : PictureBox
+    public class Baummaler
     {
-        private Bäumchen my_Baum;
+        private readonly Bäumchen my_Baum;
+        private Bitmap b;
+        private Graphics g;
+        private Treeholder t;
 
-        public Bäumchen Baum { get { return my_Baum; } set => my_Baum = value; }
-        public Baummaler()
+        public Bäumchen Baum { get { return my_Baum; } }
+        public Baummaler(Bäumchen Baum)
         {
+            my_Baum = Baum;
+        }
+
+        public void Update()
+        {
+            /*b = new Bitmap(Convert.ToInt32(Math.Pow(2, my_Baum.GetDeep() - 1)), 2);
+            g = Graphics.FromImage(b);
+            g.FillEllipse(new SolidBrush(Color.Red), new Rectangle(0, 0, b.Width, b.Height));
+            if (t != null) t.SetImage(b);*/
+        }
+
+        public void SetTreeholder(Treeholder treeholder)
+        {
+            t = treeholder;
+            Update();
+        }
+    }
+
+    public class Treeholder : FlowLayoutPanel
+    {
+        private PictureBox p = new PictureBox();
+        private Baummaler b;
+
+        public Treeholder()
+        {
+            p.SizeMode = PictureBoxSizeMode.AutoSize;
+            this.AutoScroll = true;
+            this.Controls.Add(p);
+            OpenFileDialog opf = new OpenFileDialog();
+            if(opf.ShowDialog() == DialogResult.OK)
+            {
+                p.Image = new Bitmap(opf.FileName);
+            }
+        }
+
+        public void SetImage(Bitmap image) => p.Image = image;
+        public void SetBaummaler(Baummaler baummaler)
+        {
+            b = baummaler;
+            b.SetTreeholder(this);
         }
     }
 }

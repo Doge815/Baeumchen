@@ -33,6 +33,8 @@
             this.nUD_max = new System.Windows.Forms.NumericUpDown();
             this.rTB_out = new System.Windows.Forms.RichTextBox();
             this.nUD_count = new System.Windows.Forms.NumericUpDown();
+            this.mainholder = new Baeumchen.Treeholder();
+            this.lb_deep = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nUD_min)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nUD_max)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nUD_count)).BeginInit();
@@ -86,10 +88,10 @@
             // 
             // rTB_out
             // 
-            this.rTB_out.Location = new System.Drawing.Point(208, 133);
+            this.rTB_out.Location = new System.Drawing.Point(12, 133);
             this.rTB_out.Name = "rTB_out";
             this.rTB_out.ReadOnly = true;
-            this.rTB_out.Size = new System.Drawing.Size(327, 153);
+            this.rTB_out.Size = new System.Drawing.Size(327, 305);
             this.rTB_out.TabIndex = 3;
             this.rTB_out.Text = "";
             // 
@@ -110,11 +112,30 @@
             0,
             0});
             // 
+            // mainholder
+            // 
+            this.mainholder.AutoScroll = true;
+            this.mainholder.Location = new System.Drawing.Point(345, 136);
+            this.mainholder.Name = "mainholder";
+            this.mainholder.Size = new System.Drawing.Size(443, 302);
+            this.mainholder.TabIndex = 5;
+            // 
+            // lb_deep
+            // 
+            this.lb_deep.AutoSize = true;
+            this.lb_deep.Location = new System.Drawing.Point(342, 88);
+            this.lb_deep.Name = "lb_deep";
+            this.lb_deep.Size = new System.Drawing.Size(13, 13);
+            this.lb_deep.TabIndex = 6;
+            this.lb_deep.Text = "1";
+            // 
             // Baumhaus
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lb_deep);
+            this.Controls.Add(this.mainholder);
             this.Controls.Add(this.nUD_count);
             this.Controls.Add(this.rTB_out);
             this.Controls.Add(this.nUD_max);
@@ -126,6 +147,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nUD_max)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nUD_count)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -136,6 +158,8 @@
         private System.Windows.Forms.NumericUpDown nUD_max;
         private System.Windows.Forms.RichTextBox rTB_out;
         private System.Windows.Forms.NumericUpDown nUD_count;
+        private Treeholder mainholder;
+        private System.Windows.Forms.Label lb_deep;
     }
 }
 
