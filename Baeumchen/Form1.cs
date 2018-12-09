@@ -13,6 +13,7 @@ namespace Baeumchen
 {
     public partial class Baumhaus : Form
     {
+        //Wer das folgende nicht versteht: Hallo Lucas bzw. Herr Dorn
         Bäumchen my_tree;
         Baummaler my_maler;
         public Baumhaus()
