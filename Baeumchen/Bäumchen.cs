@@ -15,18 +15,25 @@ namespace Baeumchen
     {
         private readonly int my_int;
         private List<Bäumchen> sons = new List<Bäumchen> { null, null };
+        internal Bäumchen geschlechtslosesElternteil = null;
         private Baummaler my_maler = null;
 
         public int Value { get { return my_int; } }
         public List<Bäumchen> Sons {  get { return sons; } }
 
         public Bäumchen(int value) => my_int = value;
+        internal Bäumchen(int value, Bäumchen father)
+        {
+            my_int = value;
+            geschlechtslosesElternteil = father;
+        }
+
 
         public void Add(int value)
         {
             if (value == my_int) goto Skip;
             int pos = (value < my_int) ? (0) : (1);
-            if (sons[pos] == null) sons[pos] = new Bäumchen(value);
+            if (sons[pos] == null) sons[pos] = new Bäumchen(value, this);
             else sons[pos].Add(value);
             if (my_maler != null) my_maler.UpdateImage();
             Skip:;
@@ -67,31 +74,40 @@ namespace Baeumchen
 
         public void UpdateImage()
         {
-            b = new Bitmap(Convert.ToInt32(Math.Pow(2, my_Baum.GetDeep()) * 50), my_Baum.GetDeep() * 50);
+            b = new Bitmap(Convert.ToInt32(Math.Pow(2, my_Baum.GetDeep()) * 50 - 50), my_Baum.GetDeep() * 50);
             g = Graphics.FromImage(b);
             g.FillRectangle(new SolidBrush(Color.Gray), new Rectangle(0, 0, b.Width, b.Height));
             SolidBrush brush = new SolidBrush(Color.Red);
-            foreach(Point p in GetPoints(my_Baum))
+            foreach(Point p in GetPoints(my_Baum, g))
             {
-                g.FillEllipse(brush, new Rectangle(p.X - 5, p.Y - 5, 10, 10));
+                g.FillEllipse(brush, new Rectangle(p.X - 5, p.Y - 30, 10, 10));
             }
             if (t != null) t.SetImage(b);
         }
 
-        private List<Point> GetPoints(Bäumchen Baum)
+        private List<Point> GetPoints(Bäumchen Baum, Graphics g)
         {
             List<Point> points = new List<Point>();
+
+            Dictionary<Bäumchen, Point> daddys = new Dictionary<Bäumchen, Point>();
             List<Bäumchen> possibles = new List<Bäumchen> { Baum };
             for (int i = 0; i < my_Baum.GetDeep(); i++)
             {
                 List<Bäumchen> news = new List<Bäumchen>();
+                Dictionary<Bäumchen, Point> daddy_news = new Dictionary<Bäumchen, Point>();
                 for(int u = 1; u <= possibles.Count; u++)
                 {
-                    //if (possibles[u - 1] != null) points.Add(new Point(u / possibles.Count / 2 * b.Width, (i + 1) * 50));
-                    if (possibles[u - 1] != null) points.Add(new Point(Convert.ToInt16(b.Width / 2 * u / Math.Pow(2, i)), (i + 1) * 50));
+                    if (possibles[u - 1] != null)
+                    {
+                        Point p = new Point(Convert.ToInt16(b.Width / 2 * (u * 2 - 1) / Math.Pow(2, i)), (i + 1) * 50);
+                        points.Add(p);
+                        daddy_news.Add(possibles[u - 1], new Point(p.X, p.Y - 25));
+                        try { g.DrawLine(new Pen(Color.Black, 5), new Point(p.X, p.Y - 25), daddys[possibles[u - 1].geschlechtslosesElternteil]); } catch { }
+                    }
                     try { news.Add(possibles[u - 1].Sons[0]); } catch { news.Add(null); }
                     try { news.Add(possibles[u - 1].Sons[1]); } catch { news.Add(null); }
-            }
+                }
+                daddys = daddy_news;
                 possibles = news;
             }
             return points;
