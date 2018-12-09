@@ -33,7 +33,7 @@ namespace Baeumchen
         private void bt_Add_Click(object sender, EventArgs e)
         {
             Random rand = new Random();
-            for(int i = 0; i < nUD_count.Value; i++) my_tree.Add(Convert.ToInt32((!cB_rand.Checked)?(nUD_min.Value):(rand.Next(Convert.ToInt32(nUD_min.Value), Convert.ToInt32(nUD_max.Value + 1)))));
+            for(int i = 0; i < ((cB_rand.Checked) ? (nUD_count.Value) : (1)); i++) my_tree.Add(Convert.ToInt32((!cB_rand.Checked)?(nUD_min.Value):(rand.Next(Convert.ToInt32(nUD_min.Value), Convert.ToInt32(nUD_max.Value + 1)))));
             rTB_out.Text = string.Join(", ", my_tree.Deep().ToArray());
             lb_deep.Text = "Tiefe: " + my_tree.GetDeep().ToString();
         }
@@ -41,6 +41,10 @@ namespace Baeumchen
         private void cB_rand_CheckedChanged(object sender, EventArgs e)
         {
             nUD_max.Visible = cB_rand.Checked;
+            label1.Visible = cB_rand.Checked;
+            label3.Visible = cB_rand.Checked;
+            nUD_count.Visible = cB_rand.Checked;
+            label2.Text = ((cB_rand.Checked) ? ("min. ") : ("")) + "Wert:";
         }
     }
 }

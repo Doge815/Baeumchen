@@ -78,16 +78,17 @@ namespace Baeumchen
             g = Graphics.FromImage(b);
             g.FillRectangle(new SolidBrush(Color.Gray), new Rectangle(0, 0, b.Width, b.Height));
             SolidBrush brush = new SolidBrush(Color.Red);
-            foreach(Point p in GetPoints(my_Baum, g))
+            foreach(PunktTextComboAlsTupelErsatz p in GetPoints(my_Baum, g))
             {
-                g.FillEllipse(brush, new Rectangle(p.X - 5, p.Y - 30, 10, 10));
+                g.FillEllipse(brush, new Rectangle(p.Point.X - 20, p.Point.Y - 25 - 20, 40, 40));
+                g.DrawString(p.Text, new Font("Impact", 20), new SolidBrush(Color.Black), new Point(p.Point.X, p.Point.Y - 25), new StringFormat { LineAlignment = StringAlignment.Center, Alignment = StringAlignment.Center });
             }
             if (t != null) t.SetImage(b);
         }
 
-        private List<Point> GetPoints(Bäumchen Baum, Graphics g)
+        private List<PunktTextComboAlsTupelErsatz> GetPoints(Bäumchen Baum, Graphics g)
         {
-            List<Point> points = new List<Point>();
+            List<PunktTextComboAlsTupelErsatz> points = new List<PunktTextComboAlsTupelErsatz>();
 
             Dictionary<Bäumchen, Point> daddys = new Dictionary<Bäumchen, Point>();
             List<Bäumchen> possibles = new List<Bäumchen> { Baum };
@@ -100,7 +101,7 @@ namespace Baeumchen
                     if (possibles[u - 1] != null)
                     {
                         Point p = new Point(Convert.ToInt16(b.Width / 2 * (u * 2 - 1) / Math.Pow(2, i)), (i + 1) * 50);
-                        points.Add(p);
+                        points.Add(new PunktTextComboAlsTupelErsatz(p, possibles[u - 1].Value.ToString()));
                         daddy_news.Add(possibles[u - 1], new Point(p.X, p.Y - 25));
                         try { g.DrawLine(new Pen(Color.Black, 5), new Point(p.X, p.Y - 25), daddys[possibles[u - 1].geschlechtslosesElternteil]); } catch { }
                     }
@@ -137,6 +138,20 @@ namespace Baeumchen
         {
             b = baummaler;
             b.SetTreeholder(this);
+        }
+    }
+
+    public class PunktTextComboAlsTupelErsatz
+    {
+        private Point p;
+        string t;
+        public Point Point { get { return p; } set => p = value; }
+        public string Text { get { return t; } set => t = value; }
+
+        public PunktTextComboAlsTupelErsatz(Point p, string t)
+        {
+            this.p = p;
+            this.t = t;
         }
     }
 }
