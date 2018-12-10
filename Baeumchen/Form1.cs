@@ -16,22 +16,27 @@ namespace Baeumchen
 {
     public partial class Baumhaus : Form
     {
+        #region konsolenmist
         [DllImport("kernel32.dll")]
         static extern IntPtr GetConsoleWindow();
-
         [DllImport("user32.dll")]
         static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
-
         const int SW_HIDE = 0;
         const int SW_SHOW = 5;
+        bool konsole_visible = false;
+        Thread Consolethread;
+        #endregion
 
-        //Wer das folgende nicht versteht: Hallo Lukas mit "c" bzw. Herr Dorn
+        //Wer das folgende nicht versteht: Hallo Lucas bzw. Herr Dorn
         Bäumchen my_tree;
         Baummaler my_maler;
         public Baumhaus()
         {
             var handle = GetConsoleWindow();
             ShowWindow(handle, SW_HIDE);
+            Consolethread = new Thread(IchBinDieKonsole);
+            Consolethread.Start();
+
             InitializeComponent();
             my_tree = new Bäumchen(50);
             my_maler = new Baummaler(my_tree);
@@ -64,27 +69,29 @@ namespace Baeumchen
 
         private void bt_console_Click(object sender, EventArgs e)
         {
-            //my_tree.Reset(50);
-            Thread Consolethread = new Thread(IchBinDieKonsole);
-            Consolethread.Start();
+            var handle = GetConsoleWindow();
+            konsole_visible = !konsole_visible;
+            if (konsole_visible)
+            {
+                ShowWindow(handle, SW_SHOW);
+                Console.Clear();
+
+            }
+            else ShowWindow(handle, SW_HIDE);
         }
 
         private void IchBinDieKonsole()
         {
-            var handle = GetConsoleWindow();
-            /*if (cb_console.Checked)
+            for (; ; )
             {
-                ShowWindow(handle, SW_SHOW);
-                Console.Clear();
-            }
-            else
-                ShowWindow(handle, SW_HIDE);*/
-            ShowWindow(handle, SW_SHOW);
-            Console.Clear();
-            for(; ; )
-            {
-                Console.ReadLine();
-                Console.WriteLine("Hello, World!");
+                string code = Console.ReadLine();
+                string[] codeparts = code.Split();
+                switch(codeparts[0])
+                {
+                    case "reset": try { my_tree.Reset(Convert.ToInt32(codeparts[1])); } catch { my_tree.Reset(50); } break;
+                        //case "reset": my_tree.Reset((codeparts.Length > 0)?(Convert.ToInt32(codeparts[1])):(50));  break;
+                        //default: my_tree.Reset(50);  break;
+                }
             }
         }
     }

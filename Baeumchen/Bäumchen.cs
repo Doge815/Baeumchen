@@ -148,7 +148,15 @@ namespace Baeumchen
             this.Controls.Add(p);
         }
 
-        public void SetImage(Bitmap image) => p.Image = image;  //Bekommt ein Bild und füllt mit ihm den Rahmen
+        //public void SetImage(Bitmap image) => p.Image = image;  //Bekommt ein Bild und füllt mit ihm den Rahmen
+
+        public void SetImage(Bitmap image)
+        {
+            try { p.Image = image; }
+            catch { p.Invoke((MethodInvoker)delegate { test(image); }); }
+        }
+        private void test(Bitmap image) { p.Image = image; }
+
         public void SetBaummaler(Baummaler baummaler)   //Setzt den Maler 
         {
             b = baummaler;
