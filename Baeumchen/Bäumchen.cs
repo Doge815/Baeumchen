@@ -8,7 +8,7 @@ namespace Baeumchen
     public class Bäumchen   //Die Baum-Hauptklasse
     {
         #region vars
-        private readonly int my_int;    //Eigener Wert
+        private  int my_int;    //Eigener Wert
         private List<Bäumchen> sons = new List<Bäumchen> { null, null };    //Jerder Baum KANN 2 Kinder haben
         internal Bäumchen geschlechtslosesElternteil = null;    //aka Vater
         private Baummaler my_maler = null;
@@ -55,6 +55,13 @@ namespace Baeumchen
         }
 
         internal void GetMaler(Baummaler maler) => my_maler = maler;    //Todo: change to prop
+
+        public void Reset (int value)
+        {
+            my_int = value;
+            sons[0] = sons[1] = null;
+            if (my_maler != null) my_maler.UpdateImage();
+        } 
     }
 
     public class Baummaler

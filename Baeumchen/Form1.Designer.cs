@@ -39,6 +39,7 @@
             this.mainholder = new Baeumchen.Treeholder();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.bt_console = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nUD_min)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nUD_max)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nUD_count)).BeginInit();
@@ -180,11 +181,22 @@
             this.label3.Text = "max. Wert:";
             this.label3.Visible = false;
             // 
+            // bt_console
+            // 
+            this.bt_console.Location = new System.Drawing.Point(762, 12);
+            this.bt_console.Name = "bt_console";
+            this.bt_console.Size = new System.Drawing.Size(75, 23);
+            this.bt_console.TabIndex = 11;
+            this.bt_console.Text = "button1";
+            this.bt_console.UseVisualStyleBackColor = true;
+            this.bt_console.Click += new System.EventHandler(this.bt_console_Click);
+            // 
             // Baumhaus
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(849, 477);
+            this.Controls.Add(this.bt_console);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cB_rand);
@@ -221,6 +233,7 @@
         private System.Windows.Forms.CheckBox cB_rand;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button bt_console;
     }
 }
 
