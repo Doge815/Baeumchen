@@ -72,7 +72,7 @@ namespace Baeumchen
         private void nUD_Value_Changed(object sender, EventArgs e)
         {
             if ((NumericUpDown)sender == nUD_max && nUD_max.Value < nUD_min.Value) nUD_max.Value = nUD_min.Value;
-            else if ((NumericUpDown)sender == nUD_min && nUD_min.Value > nUD_max.Value) nUD_min.Value = nUD_max.Value;
+            else if ((NumericUpDown)sender == nUD_min && nUD_min.Value > nUD_max.Value && nUD_max.Visible) nUD_min.Value = nUD_max.Value;
         }
 
         private void bt_Add_Click(object sender, EventArgs e)
@@ -96,6 +96,7 @@ namespace Baeumchen
             label3.Visible = cB_rand.Checked;
             nUD_count.Visible = cB_rand.Checked;
             label2.Text = ((cB_rand.Checked) ? ("min. ") : ("")) + "Wert:";
+            if (nUD_min.Value > nUD_max.Value) nUD_min.Value = nUD_max.Value;
         }
 
         private void bt_console_Click(object sender, EventArgs e)

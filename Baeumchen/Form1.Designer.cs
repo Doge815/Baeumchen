@@ -63,6 +63,11 @@
             0,
             0,
             0});
+            this.nUD_min.Minimum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            -2147483648});
             this.nUD_min.Name = "nUD_min";
             this.nUD_min.Size = new System.Drawing.Size(120, 20);
             this.nUD_min.TabIndex = 1;
@@ -77,10 +82,10 @@
             0,
             0});
             this.nUD_max.Minimum = new decimal(new int[] {
-            1,
+            99999,
             0,
             0,
-            0});
+            -2147483648});
             this.nUD_max.Name = "nUD_max";
             this.nUD_max.Size = new System.Drawing.Size(120, 20);
             this.nUD_max.TabIndex = 2;
