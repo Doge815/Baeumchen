@@ -153,9 +153,9 @@ namespace Baeumchen
         public void SetImage(Bitmap image)
         {
             try { p.Image = image; }
-            catch { p.Invoke((MethodInvoker)delegate { test(image); }); }
+            catch { p.Invoke((MethodInvoker)delegate { Invoset(image); }); }
         }
-        private void test(Bitmap image) { p.Image = image; }
+        private void Invoset(Bitmap image) { p.Image = image; }
 
         public void SetBaummaler(Baummaler baummaler)   //Setzt den Maler 
         {

@@ -183,11 +183,11 @@
             // 
             // bt_console
             // 
-            this.bt_console.Location = new System.Drawing.Point(762, 12);
+            this.bt_console.Location = new System.Drawing.Point(716, 12);
             this.bt_console.Name = "bt_console";
-            this.bt_console.Size = new System.Drawing.Size(75, 23);
+            this.bt_console.Size = new System.Drawing.Size(121, 23);
             this.bt_console.TabIndex = 11;
-            this.bt_console.Text = "button1";
+            this.bt_console.Text = "zeige Konsole";
             this.bt_console.UseVisualStyleBackColor = true;
             this.bt_console.Click += new System.EventHandler(this.bt_console_Click);
             // 
@@ -212,6 +212,7 @@
             this.Name = "Baumhaus";
             this.ShowIcon = false;
             this.Text = "Baumhaushauer";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Baumhaus_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.nUD_min)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nUD_max)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nUD_count)).EndInit();
