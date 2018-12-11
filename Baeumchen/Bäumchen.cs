@@ -28,14 +28,21 @@ namespace Baeumchen
             geschlechtslosesElternteil = father;
         }
 
-        public void Add(int value)  //Fügt neue Werte hinzu 
+        public void Add(int value) => Add(value, true);
+
+        public void Add(int value, bool redraw)  //Fügt neue Werte hinzu 
         {
             if (value == my_int) goto Skip; //Wenn der Wert gleich dem eigenen ist, wird geskipt
             int pos = (value < my_int) ? (0) : (1);
             if (sons[pos] == null) sons[pos] = new Bäumchen(value, this);   //Wenn kein Sohn an der Position existiert, wird ein neuer erstellt 
             else sons[pos].Add(value);  //wenn einer existiert, wird der Wert weitergegeben
-            if (my_maler != null) my_maler.UpdateImage();
+            //if (my_maler != null && redraw) my_maler.UpdateImage();
             Skip:;
+        }
+
+        public void ForceRedraw()
+        {
+            if (my_maler != null) my_maler.UpdateImage();
         }
 
         public List<int> Deep() //Gibt alle Elemente von sich Söhnen, deren Söhnen, usw. aus 

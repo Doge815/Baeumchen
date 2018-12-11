@@ -36,10 +36,10 @@
             this.lb_deep = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.cB_rand = new System.Windows.Forms.CheckBox();
-            this.mainholder = new Baeumchen.Treeholder();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.bt_console = new System.Windows.Forms.Button();
+            this.mainholder = new Baeumchen.Treeholder();
             ((System.ComponentModel.ISupportInitialize)(this.nUD_min)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nUD_max)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nUD_count)).BeginInit();
@@ -96,6 +96,8 @@
             // 
             this.rTB_out.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.rTB_out.BackColor = System.Drawing.Color.White;
+            this.rTB_out.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.rTB_out.Location = new System.Drawing.Point(12, 133);
             this.rTB_out.Name = "rTB_out";
             this.rTB_out.ReadOnly = true;
@@ -151,17 +153,6 @@
             this.cB_rand.UseVisualStyleBackColor = true;
             this.cB_rand.CheckedChanged += new System.EventHandler(this.cB_rand_CheckedChanged);
             // 
-            // mainholder
-            // 
-            this.mainholder.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.mainholder.AutoScroll = true;
-            this.mainholder.Location = new System.Drawing.Point(345, 133);
-            this.mainholder.Name = "mainholder";
-            this.mainholder.Size = new System.Drawing.Size(492, 329);
-            this.mainholder.TabIndex = 5;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -183,6 +174,7 @@
             // 
             // bt_console
             // 
+            this.bt_console.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.bt_console.Location = new System.Drawing.Point(716, 12);
             this.bt_console.Name = "bt_console";
             this.bt_console.Size = new System.Drawing.Size(121, 23);
@@ -190,6 +182,17 @@
             this.bt_console.Text = "zeige Konsole";
             this.bt_console.UseVisualStyleBackColor = true;
             this.bt_console.Click += new System.EventHandler(this.bt_console_Click);
+            // 
+            // mainholder
+            // 
+            this.mainholder.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.mainholder.AutoScroll = true;
+            this.mainholder.Location = new System.Drawing.Point(345, 133);
+            this.mainholder.Name = "mainholder";
+            this.mainholder.Size = new System.Drawing.Size(492, 329);
+            this.mainholder.TabIndex = 5;
             // 
             // Baumhaus
             // 

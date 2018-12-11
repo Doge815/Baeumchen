@@ -78,7 +78,8 @@ namespace Baeumchen
         private void bt_Add_Click(object sender, EventArgs e)
         {
             Random rand = new Random();
-            for(int i = 0; i < ((cB_rand.Checked) ? (nUD_count.Value) : (1)); i++) my_tree.Add(Convert.ToInt32((!cB_rand.Checked)?(nUD_min.Value):(rand.Next(Convert.ToInt32(nUD_min.Value), Convert.ToInt32(nUD_max.Value + 1)))));
+            for (int i = 0; i < ((cB_rand.Checked) ? (nUD_count.Value) : (1)); i++) { my_tree.Add(Convert.ToInt32((!cB_rand.Checked) ? (nUD_min.Value) : (rand.Next(Convert.ToInt32(nUD_min.Value), Convert.ToInt32(nUD_max.Value + 1)))), false); }
+            my_tree.ForceRedraw();
             resetdeep(string.Join(", ", my_tree.Deep().ToArray()));
         }
 
@@ -152,12 +153,15 @@ namespace Baeumchen
                         my_tree.Reset(final[0]);
                         for(int i = 1; i < final.Count; i++)
                         {
-                            my_tree.Add(final[i]);
+                            my_tree.Add(final[i], false);
                         }
                         Invoke((MethodInvoker)delegate { resetdeep(final.Select(x => x.ToString()).Aggregate((x, y) => $"{x}, {y}")); });
+                        my_tree.ForceRedraw();
                         break;
                     #endregion
                     case "Fill": goto case "fill";
+                    case "redraw": my_tree.ForceRedraw(); break;
+                    case "Redraw": goto case "redraw";
                     default: Console.WriteLine("unknown command"); break;
                 }
             }
