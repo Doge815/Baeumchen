@@ -80,8 +80,10 @@ namespace Baeumchen
             Random rand = new Random();
             for(int i = 0; i < ((cB_rand.Checked) ? (nUD_count.Value) : (1)); i++) my_tree.Add(Convert.ToInt32((!cB_rand.Checked)?(nUD_min.Value):(rand.Next(Convert.ToInt32(nUD_min.Value), Convert.ToInt32(nUD_max.Value + 1)))));
             rTB_out.Text = string.Join(", ", my_tree.Deep().ToArray());
-            lb_deep.Text = "Tiefe: " + my_tree.GetDeep().ToString();
+            resetdeep();
         }
+
+        private void resetdeep() => lb_deep.Text = "Tiefe: " + my_tree.GetDeep().ToString();
 
         private void cB_rand_CheckedChanged(object sender, EventArgs e)
         {
@@ -119,13 +121,14 @@ namespace Baeumchen
                 string[] codeparts = code.Split();
                 switch(codeparts[0])
                 {
-                    case "reset": try { my_tree.Reset(Convert.ToInt32(codeparts[1])); } catch { my_tree.Reset(50); } break;
+                    case "reset": try { my_tree.Reset(Convert.ToInt32(codeparts[1])); } catch { my_tree.Reset(50); } Invoke((MethodInvoker)delegate { resetdeep(); }); break;
                     case "Reset": goto case "reset";
-                    case "add": try { my_tree.Add(Convert.ToInt32(codeparts[1])); } catch { Console.WriteLine("Second argument is missing or wrong. :/"); } break;
+                    case "add": try { my_tree.Add(Convert.ToInt32(codeparts[1])); } catch { Console.WriteLine("Second argument is missing or wrong. :/"); } Invoke((MethodInvoker)delegate { resetdeep(); }); break;
                     case "Add": goto case "add";
                     case "close": bt_console_Click(new object(), new EventArgs()); break;
                     case "Close": goto case "close";
                     case "fill":
+                        #region fill
                         int elementscount = 16;
                         try { elementscount = Convert.ToInt32(Math.Pow(2, Convert.ToInt32(codeparts[1]))); } catch { }
                         List<int> final = new List<int>();
@@ -142,13 +145,16 @@ namespace Baeumchen
                                 }
                             }
                         }
-                        Console.WriteLine(final.Select(x => x.ToString()).Aggregate((x, y) => $"{x}, {y}"));
+                        //Console.WriteLine(final.Select(x => x.ToString()).Aggregate((x, y) => $"{x}, {y}"));
                         my_tree.Reset(final[0]);
                         for(int i = 1; i < final.Count; i++)
                         {
                             my_tree.Add(final[i]);
                         }
+                        Invoke((MethodInvoker)delegate { resetdeep(); });
                         break;
+                    #endregion
+                    case "Fill": goto case "fill";
                     default: Console.WriteLine("unknown command"); break;
                 }
             }
