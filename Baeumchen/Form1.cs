@@ -79,11 +79,14 @@ namespace Baeumchen
         {
             Random rand = new Random();
             for(int i = 0; i < ((cB_rand.Checked) ? (nUD_count.Value) : (1)); i++) my_tree.Add(Convert.ToInt32((!cB_rand.Checked)?(nUD_min.Value):(rand.Next(Convert.ToInt32(nUD_min.Value), Convert.ToInt32(nUD_max.Value + 1)))));
-            rTB_out.Text = string.Join(", ", my_tree.Deep().ToArray());
-            resetdeep();
+            resetdeep(string.Join(", ", my_tree.Deep().ToArray()));
         }
 
-        private void resetdeep() => lb_deep.Text = "Tiefe: " + my_tree.GetDeep().ToString();
+        private void resetdeep(string text)
+        {
+            lb_deep.Text = "Tiefe: " + my_tree.GetDeep().ToString();
+            rTB_out.Text = text;
+        }
 
         private void cB_rand_CheckedChanged(object sender, EventArgs e)
         {
@@ -121,9 +124,9 @@ namespace Baeumchen
                 string[] codeparts = code.Split();
                 switch(codeparts[0])
                 {
-                    case "reset": try { my_tree.Reset(Convert.ToInt32(codeparts[1])); } catch { my_tree.Reset(50); } Invoke((MethodInvoker)delegate { resetdeep(); }); break;
+                    case "reset": try { my_tree.Reset(Convert.ToInt32(codeparts[1])); } catch { my_tree.Reset(50); } Invoke((MethodInvoker)delegate { resetdeep(codeparts[1]); }); break;
                     case "Reset": goto case "reset";
-                    case "add": try { my_tree.Add(Convert.ToInt32(codeparts[1])); } catch { Console.WriteLine("Second argument is missing or wrong. :/"); } Invoke((MethodInvoker)delegate { resetdeep(); }); break;
+                    case "add": try { my_tree.Add(Convert.ToInt32(codeparts[1])); } catch { Console.WriteLine("Second argument is missing or wrong. :/"); } Invoke((MethodInvoker)delegate { resetdeep(my_tree.Deep().Select(x => x.ToString()).Aggregate((x, y) => $"{x}, {y}")); }); break;
                     case "Add": goto case "add";
                     case "close": bt_console_Click(new object(), new EventArgs()); break;
                     case "Close": goto case "close";
@@ -151,7 +154,7 @@ namespace Baeumchen
                         {
                             my_tree.Add(final[i]);
                         }
-                        Invoke((MethodInvoker)delegate { resetdeep(); });
+                        Invoke((MethodInvoker)delegate { resetdeep(final.Select(x => x.ToString()).Aggregate((x, y) => $"{x}, {y}")); });
                         break;
                     #endregion
                     case "Fill": goto case "fill";
