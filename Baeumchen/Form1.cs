@@ -130,6 +130,14 @@ namespace Baeumchen
                     case "Reset": goto case "reset";
                     case "add": try { my_tree.Add(Convert.ToInt32(codeparts[1]), false); } catch { Console.WriteLine("Second argument is missing or wrong. :/"); } my_tree.ForceRedraw(); Invoke((MethodInvoker)delegate { resetdeep(my_tree.Deep().Select(x => x.ToString()).Aggregate((x, y) => $"{x}, {y}")); }); break;
                     case "Add": goto case "add";
+                    case "addlist":
+                        for (int i = 1; i< codeparts.Length; i++)
+                        {
+                            my_tree.Add(Convert.ToInt32(codeparts[i]), false);
+                        }
+                        my_tree.ForceRedraw();
+                        Invoke((MethodInvoker)delegate { resetdeep(my_tree.Deep().Select(x => x.ToString()).Aggregate((x, y) => $"{x}, {y}")); });
+                        break;
                     case "close": bt_console_Click(new object(), new EventArgs()); break;
                     case "Close": goto case "close";
                     case "fill":
@@ -164,7 +172,6 @@ namespace Baeumchen
                     case "redraw": my_tree.ForceRedraw(); break;
                     case "Redraw": goto case "redraw";
                     case "remove": try { my_tree.Remove(Convert.ToInt32(codeparts[1])); } catch { Console.WriteLine("Second argument is missing or wrong. :/"); } Invoke((MethodInvoker)delegate { resetdeep(my_tree.Deep().Select(x => x.ToString()).Aggregate((x, y) => $"{x}, {y}")); }); break;
-                    //case "remove": my_tree.Remove(67); break;
                     case "Remove": goto case "remove";
                     default: Console.WriteLine("unknown command"); break;
                 }
