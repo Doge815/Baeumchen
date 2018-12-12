@@ -16,7 +16,7 @@ namespace Baeumchen
 {
     public partial class Baumhaus : Form
     {
-        #region konsolenmist
+        #region Konsolenstuff
         //Konsole anzeigen/verstecken, Konsole nicht schließbar, Readline() abbrechen
         [DllImport("user32.dll")]
         public static extern int DeleteMenu(IntPtr hMenu, int nPosition, int wFlags);
@@ -182,7 +182,7 @@ namespace Baeumchen
         {
             Image I = mainholder.GetImage();
             SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "PNG Image|*.png|JPG Image|*.jpg|Bitmap Image|*.bmp|Gif Image|*.gif|Icon (der Mist ist WIP)|*.ico";
+            sfd.Filter = "PNG Image|*.png|JPG Image|*.jpg|Bitmap Image|*.bmp|Gif Image|*.gif|Icon (WIP)|*.ico";
             sfd.Title = "Save da image";
             if (sfd.ShowDialog() == DialogResult.OK)
             {
