@@ -39,6 +39,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.bt_console = new System.Windows.Forms.Button();
+            this.bt_save = new System.Windows.Forms.Button();
             this.mainholder = new Baeumchen.Treeholder();
             ((System.ComponentModel.ISupportInitialize)(this.nUD_min)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nUD_max)).BeginInit();
@@ -188,6 +189,17 @@
             this.bt_console.UseVisualStyleBackColor = true;
             this.bt_console.Click += new System.EventHandler(this.bt_console_Click);
             // 
+            // bt_save
+            // 
+            this.bt_save.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.bt_save.Location = new System.Drawing.Point(716, 41);
+            this.bt_save.Name = "bt_save";
+            this.bt_save.Size = new System.Drawing.Size(121, 23);
+            this.bt_save.TabIndex = 12;
+            this.bt_save.Text = "Baum speichern unter";
+            this.bt_save.UseVisualStyleBackColor = true;
+            this.bt_save.Click += new System.EventHandler(this.bt_save_Click);
+            // 
             // mainholder
             // 
             this.mainholder.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -204,6 +216,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(849, 477);
+            this.Controls.Add(this.bt_save);
             this.Controls.Add(this.bt_console);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -243,6 +256,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button bt_console;
+        private System.Windows.Forms.Button bt_save;
     }
 }
 

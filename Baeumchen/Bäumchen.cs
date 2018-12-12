@@ -45,7 +45,7 @@ namespace Baeumchen
             if (my_maler != null) my_maler.UpdateImage();
         }
 
-        public List<int> Deep() //Gibt alle Elemente von sich Söhnen, deren Söhnen, usw. aus 
+        public List<int> Deep() //Gibt alle Elemente von sich und Söhnen, deren Söhnen, usw. aus 
         {
             List<int> output = new List<int>();
             if (sons[0] != null) output.AddRange(sons[0].Deep());   //wenn ein Sohn existiert, rekursive Ausführung
@@ -69,6 +69,18 @@ namespace Baeumchen
             sons[0] = sons[1] = null;
             if (my_maler != null) my_maler.UpdateImage();
         } 
+
+        public void Remove(int value, Bäumchen daddy = null)
+        {
+            if (value == my_int && geschlechtslosesElternteil != null)
+            {
+                geschlechtslosesElternteil.Sons[geschlechtslosesElternteil.sons.IndexOf(this)] = null;
+            }
+            else if (value < my_int) Sons[0].Remove(value, this);
+            else if (value > my_int) Sons[1].Remove(value, this);
+            else if (geschlechtslosesElternteil == null) Reset(50);
+            if (geschlechtslosesElternteil == null) ForceRedraw();
+        }
     }
 
     public class Baummaler
@@ -169,6 +181,8 @@ namespace Baeumchen
             b = baummaler;
             b.SetTreeholder(this);
         }
+
+        public Image GetImage() => p.Image;
     }
 
     public class PunktTextComboAlsTupelErsatz   //Container, weil Tupel schlimm sind und Structs zu wenig Speicher brauchen

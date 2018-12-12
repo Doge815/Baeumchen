@@ -128,7 +128,7 @@ namespace Baeumchen
                 {
                     case "reset": try { my_tree.Reset(Convert.ToInt32(codeparts[1])); } catch { my_tree.Reset(50); } Invoke((MethodInvoker)delegate { resetdeep(codeparts[1]); }); break;
                     case "Reset": goto case "reset";
-                    case "add": try { my_tree.Add(Convert.ToInt32(codeparts[1])); } catch { Console.WriteLine("Second argument is missing or wrong. :/"); } Invoke((MethodInvoker)delegate { resetdeep(my_tree.Deep().Select(x => x.ToString()).Aggregate((x, y) => $"{x}, {y}")); }); break;
+                    case "add": try { my_tree.Add(Convert.ToInt32(codeparts[1]), false); } catch { Console.WriteLine("Second argument is missing or wrong. :/"); } my_tree.ForceRedraw(); Invoke((MethodInvoker)delegate { resetdeep(my_tree.Deep().Select(x => x.ToString()).Aggregate((x, y) => $"{x}, {y}")); }); break;
                     case "Add": goto case "add";
                     case "close": bt_console_Click(new object(), new EventArgs()); break;
                     case "Close": goto case "close";
@@ -163,8 +163,33 @@ namespace Baeumchen
                     case "Fill": goto case "fill";
                     case "redraw": my_tree.ForceRedraw(); break;
                     case "Redraw": goto case "redraw";
+                    case "remove": try { my_tree.Remove(Convert.ToInt32(codeparts[1])); } catch { Console.WriteLine("Second argument is missing or wrong. :/"); } Invoke((MethodInvoker)delegate { resetdeep(my_tree.Deep().Select(x => x.ToString()).Aggregate((x, y) => $"{x}, {y}")); }); break;
+                    //case "remove": my_tree.Remove(67); break;
+                    case "Remove": goto case "remove";
                     default: Console.WriteLine("unknown command"); break;
                 }
+            }
+        }
+
+        private void bt_save_Click(object sender, EventArgs e)
+        {
+            Image I = mainholder.GetImage();
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "PNG Image|*.png|JPG Image|*.jpg|Bitmap Image|*.bmp|Gif Image|*.gif";
+            sfd.Title = "Save da image";
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                System.Drawing.Imaging.ImageFormat IF = null;
+                System.IO.FileStream fs = (System.IO.FileStream)sfd.OpenFile();
+                switch (sfd.FilterIndex)
+                {
+                    case 1: IF = System.Drawing.Imaging.ImageFormat.Png; break;
+                    case 2: IF = System.Drawing.Imaging.ImageFormat.Jpeg; break;
+                    case 3: IF = System.Drawing.Imaging.ImageFormat.Bmp; break;
+                    case 4: IF = System.Drawing.Imaging.ImageFormat.Gif; break;
+                }
+                I.Save(fs, IF);
+                fs.Close();
             }
         }
     }
