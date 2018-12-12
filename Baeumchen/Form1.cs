@@ -131,13 +131,13 @@ namespace Baeumchen
                     case "add": try { my_tree.Add(Convert.ToInt32(codeparts[1]), false); } catch { Console.WriteLine("Second argument is missing or wrong. :/"); } my_tree.ForceRedraw(); Invoke((MethodInvoker)delegate { resetdeep(my_tree.Deep().Select(x => x.ToString()).Aggregate((x, y) => $"{x}, {y}")); }); break;
                     case "Add": goto case "add";
                     case "addlist":
-                        for (int i = 1; i< codeparts.Length; i++)
-                        {
-                            my_tree.Add(Convert.ToInt32(codeparts[i]), false);
-                        }
+                        #region
+                        for (int i = 1; i< codeparts.Length; i++) my_tree.Add(Convert.ToInt32(codeparts[i]), false);
                         my_tree.ForceRedraw();
                         Invoke((MethodInvoker)delegate { resetdeep(my_tree.Deep().Select(x => x.ToString()).Aggregate((x, y) => $"{x}, {y}")); });
                         break;
+                    #endregion
+                    case "Addlist": goto case "addlist";
                     case "close": bt_console_Click(new object(), new EventArgs()); break;
                     case "Close": goto case "close";
                     case "fill":
@@ -182,7 +182,7 @@ namespace Baeumchen
         {
             Image I = mainholder.GetImage();
             SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "PNG Image|*.png|JPG Image|*.jpg|Bitmap Image|*.bmp|Gif Image|*.gif";
+            sfd.Filter = "PNG Image|*.png|JPG Image|*.jpg|Bitmap Image|*.bmp|Gif Image|*.gif|Icon (der Mist ist WIP)|*.ico";
             sfd.Title = "Save da image";
             if (sfd.ShowDialog() == DialogResult.OK)
             {
@@ -194,6 +194,7 @@ namespace Baeumchen
                     case 2: IF = System.Drawing.Imaging.ImageFormat.Jpeg; break;
                     case 3: IF = System.Drawing.Imaging.ImageFormat.Bmp; break;
                     case 4: IF = System.Drawing.Imaging.ImageFormat.Gif; break;
+                    case 5: IF = System.Drawing.Imaging.ImageFormat.Icon; break;
                 }
                 I.Save(fs, IF);
                 fs.Close();
