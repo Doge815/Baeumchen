@@ -45,6 +45,7 @@ namespace Baeumchen
             if (my_maler != null) my_maler.UpdateImage();
         }
 
+        /// <returns></returns>
         public List<int> Deep() //Gibt alle Elemente von sich und Söhnen, deren Söhnen, usw. aus 
         {
             List<int> output = new List<int>();

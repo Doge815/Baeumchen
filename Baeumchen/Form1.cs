@@ -124,12 +124,10 @@ namespace Baeumchen
             {
                 string code = Console.ReadLine();
                 string[] codeparts = code.Split();
-                switch(codeparts[0])
+                switch(codeparts[0].ToLower())
                 {
                     case "reset": try { my_tree.Reset(Convert.ToInt32(codeparts[1])); } catch { my_tree.Reset(50); } Invoke((MethodInvoker)delegate { resetdeep(codeparts[1]); }); break;
-                    case "Reset": goto case "reset";
                     case "add": try { my_tree.Add(Convert.ToInt32(codeparts[1]), false); } catch { Console.WriteLine("Second argument is missing or wrong. :/"); } my_tree.ForceRedraw(); Invoke((MethodInvoker)delegate { resetdeep(my_tree.Deep().Select(x => x.ToString()).Aggregate((x, y) => $"{x}, {y}")); }); break;
-                    case "Add": goto case "add";
                     case "addlist":
                         #region
                         for (int i = 1; i< codeparts.Length; i++) my_tree.Add(Convert.ToInt32(codeparts[i]), false);
@@ -137,9 +135,7 @@ namespace Baeumchen
                         Invoke((MethodInvoker)delegate { resetdeep(my_tree.Deep().Select(x => x.ToString()).Aggregate((x, y) => $"{x}, {y}")); });
                         break;
                     #endregion
-                    case "Addlist": goto case "addlist";
                     case "close": bt_console_Click(new object(), new EventArgs()); break;
-                    case "Close": goto case "close";
                     case "fill":
                         #region fill
                         int elementscount = 16;
@@ -168,11 +164,8 @@ namespace Baeumchen
                         my_tree.ForceRedraw();
                         break;
                     #endregion
-                    case "Fill": goto case "fill";
                     case "redraw": my_tree.ForceRedraw(); break;
-                    case "Redraw": goto case "redraw";
                     case "remove": try { my_tree.Remove(Convert.ToInt32(codeparts[1])); } catch { Console.WriteLine("Second argument is missing or wrong. :/"); } Invoke((MethodInvoker)delegate { resetdeep(my_tree.Deep().Select(x => x.ToString()).Aggregate((x, y) => $"{x}, {y}")); }); break;
-                    case "Remove": goto case "remove";
                     default: Console.WriteLine("unknown command"); break;
                 }
             }
